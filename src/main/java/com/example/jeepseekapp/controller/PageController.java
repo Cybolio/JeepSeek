@@ -17,7 +17,7 @@ public class PageController {
     }
 
     @GetMapping("/")
-    public String home(Model model) { nav(model, "home"); return "home"; }
+    public String home(Model model) { return "redirect:/routes"; }
 
     @GetMapping("/routes")
     public String routes(Model model) {

@@ -14,36 +14,38 @@
         filter by code, destination, or street name.
     </p>
 
-    <div id="map" class="mb-6 rounded-lg overflow-hidden border border-border"
-         style="height: 400px; border: 1px solid hsl(var(--border));"></div>
-
     <input id="search" type="text"
            placeholder="Search by code, place, or street (e.g. 04L, Ayala, Colon)..."
            class="w-full p-3 mb-6 rounded-md border bg-background text-foreground"
            style="border: 1px solid hsl(var(--border));"
            oninput="filterRoutes()"/>
 
-    <div id="routeList" class="grid gap-4 sm:grid-cols-2">
-        <div th:each="r : ${routes}"
-             th:attr="data-code=${r.code},data-name=${r.name},data-from=${r.from},data-to=${r.to},data-via=${r.via},data-color=${r.color},data-path=${r.pathJson}"
-             class="route-card bg-card text-card-foreground p-5 rounded-lg border cursor-pointer transition"
-             style="border: 1px solid hsl(var(--border));"
-             onclick="highlight(this.dataset.code)">
-            <div class="flex items-center justify-between mb-2">
-                <span th:text="${r.code}"
-                      class="text-primary-foreground px-3 py-1 rounded-md font-bold text-lg"
-                      th:style="'background:' + ${r.color}">CODE</span>
-                <span class="text-sm text-muted-foreground" th:text="${r.fare}">₱13.00</span>
+    <div class="flex flex-col md:flex-row gap-6">
+        <div id="routeListContainer" class="md:w-1/2 lg:w-2/5 overflow-y-auto" style="max-height: 600px;">
+            <div id="routeList" class="grid gap-4">
+                <div th:each="r : ${routes}"
+                     th:attr="data-code=${r.code},data-name=${r.name},data-from=${r.from},data-to=${r.to},data-via=${r.via},data-color=${r.color},data-path=${r.pathJson}"
+                     class="route-card bg-card text-card-foreground p-5 rounded-lg border cursor-pointer transition"
+                     style="border: 1px solid hsl(var(--border));"
+                     onclick="highlight(this.dataset.code)">
+                    <div class="flex items-center justify-between mb-2">
+                        <span th:text="${r.code}"
+                              class="text-primary-foreground px-3 py-1 rounded-md font-bold text-lg"
+                              th:style="'background:' + ${r.color}">CODE</span>
+                        <span class="text-sm text-muted-foreground" th:text="${r.fare}">₱13.00</span>
+                    </div>
+                    <h3 class="font-semibold mb-1" th:text="${r.name}">Name</h3>
+                    <p class="text-sm text-muted-foreground"><strong>From:</strong> <span th:text="${r.from}"></span></p>
+                    <p class="text-sm text-muted-foreground"><strong>To:</strong> <span th:text="${r.to}"></span></p>
+                    <p class="text-sm text-muted-foreground mt-1"><strong>Via:</strong> <span th:text="${r.via}"></span></p>
+                </div>
             </div>
-            <h3 class="font-semibold mb-1" th:text="${r.name}">Name</h3>
-            <p class="text-sm text-muted-foreground"><strong>From:</strong> <span th:text="${r.from}"></span></p>
-            <p class="text-sm text-muted-foreground"><strong>To:</strong> <span th:text="${r.to}"></span></p>
-            <p class="text-sm text-muted-foreground mt-1"><strong>Via:</strong> <span th:text="${r.via}"></span></p>
+            <div id="empty" class="text-center py-12 text-muted-foreground hidden">
+                <p class="text-lg">No routes found</p>
+            </div>
         </div>
-    </div>
-
-    <div id="empty" class="text-center py-12 text-muted-foreground hidden">
-        <p class="text-lg">No routes found</p>
+        <div id="map" class="md:w-1/2 lg:w-3/5 rounded-lg overflow-hidden border border-border"
+             style="height: 600px; border: 1px solid hsl(var(--border));"></div>
     </div>
 
     <p class="text-xs text-muted-foreground mt-8 text-center">

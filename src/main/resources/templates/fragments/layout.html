@@ -36,7 +36,7 @@
 
 <!-- Top navigation -->
 <nav th:fragment="nav(currentPage)"
-     class="flex justify-between items-center text-primary-foreground px-5 py-3"
+     class="relative z-[1001] flex justify-between items-center text-primary-foreground px-5 py-3"
      style="background: hsl(var(--primary));">
     <a href="/" class="flex items-center gap-2.5 cursor-pointer no-underline text-primary-foreground">
         <img src="/logo.png" class="h-8" alt="JeepSeek Logo"/>
@@ -50,7 +50,7 @@
         </svg>
     </button>
 
-    <div id="menu" class="hidden fixed top-0 right-0 h-full w-[280px] bg-primary text-primary-foreground p-5 shadow-lg z-50"
+    <div id="menu" class="hidden fixed top-0 right-0 h-full w-[280px] bg-primary text-primary-foreground p-5 shadow-lg z-[1002]"
          style="background: hsl(var(--primary));">
         <div class="flex justify-between items-center mb-6">
             <span class="text-lg font-semibold">Menu</span>
@@ -58,7 +58,7 @@
         </div>
         <div class="flex flex-col gap-2">
             <a th:each="item : ${ {
-                {'home','Home','/'},
+                {'routes','Home','/routes'},
                 {'routes','Routes','/routes'},
                 {'about','About Us','/about'},
                 {'contact','Contact Us','/contact'},
@@ -67,8 +67,8 @@
                 {'login','Admin','/login'}
                } }"
                th:href="${item[2]}"
-               th:classappend="${currentPage == item[0]} ? 'bg-white text-primary font-semibold' : 'hover:bg-white/20'"
-               class="text-left px-4 py-3 rounded-md text-base no-underline text-primary-foreground"
+               th:classappend="${currentPage == item[0]} ? 'bg-accent text-accent-foreground font-semibold' : 'hover:bg-white/20 text-primary-foreground'"
+               class="text-left px-4 py-3 rounded-md text-base no-underline"
                th:text="${item[1]}">Item</a>
         </div>
     </div>
