@@ -36,16 +36,4 @@ Default uses H2 in-memory so it runs out of the box. Swap `application.propertie
 ## Map
 Routes page loads Leaflet + OpenStreetMap from CDN — no npm needed. Coordinates come from `RouteService.getAll()` and are dropped into the page via Thymeleaf + a small inline `<script>`.
 
-## Notes
-The React version (in repo root, served by Lovable) and this Spring Boot version share the same screens and the same route data. Edit either independently.
-
 JDK 17+ required.
-
-## .gitignore
-`target/` is gitignored. Don't commit build output.
-
-## API (next steps for tomorrow)
-- `GET /api/routes` → JSON list of routes
-- `POST /api/contact` → save message
-- `POST /api/auth/register` and `/api/auth/login`
-- Add `favorite_routes` table for logged-in users
