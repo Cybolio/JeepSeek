@@ -14,8 +14,8 @@
             --card-foreground: 150 3% 18%;
             --primary: 199 34% 39%;
             --primary-foreground: 0 0% 100%;
-            --accent: 150 3% 18%;
-            --accent-foreground: 0 0% 100%;
+            --accent: 150 3% 18%; /* Original accent background */
+            --accent-foreground: 0 0% 100%; /* Original accent text color */
             --muted-foreground: 215.4 16.3% 46.9%;
             --border: 214.3 31.8% 91.4%;
         }
@@ -30,13 +30,20 @@
         .text-muted-foreground { color: hsl(var(--muted-foreground)); }
         .border-border { border-color: hsl(var(--border)); }
         .bg-background { background: hsl(var(--background)); }
+
+        /* Custom styles for menu highlighting */
+        .nav-item-active {
+            background: rgba(255, 255, 255, 0.3); /* Slightly transparent white background */
+            color: hsl(var(--primary-foreground)); /* Keep text color consistent */
+            font-weight: 600; /* Semibold */
+        }
     </style>
 </head>
 <body>
 
 <!-- Top navigation -->
 <nav th:fragment="nav(currentPage)"
-     class="relative z-[1001] flex justify-between items-center text-primary-foreground px-5 py-3"
+     class="fixed top-0 left-0 right-0 z-[9999] flex justify-between items-center text-primary-foreground px-5 py-3"
      style="background: hsl(var(--primary));">
     <a href="/" class="flex items-center gap-2.5 cursor-pointer no-underline text-primary-foreground">
         <img src="/logo.png" class="h-8" alt="JeepSeek Logo"/>
@@ -50,7 +57,7 @@
         </svg>
     </button>
 
-    <div id="menu" class="hidden fixed top-0 right-0 h-full w-[280px] bg-primary text-primary-foreground p-5 shadow-lg z-[1002]"
+    <div id="menu" class="hidden fixed top-0 right-0 h-full w-[280px] bg-primary text-primary-foreground p-5 shadow-lg z-[10000]"
          style="background: hsl(var(--primary));">
         <div class="flex justify-between items-center mb-6">
             <span class="text-lg font-semibold">Menu</span>
@@ -58,7 +65,6 @@
         </div>
         <div class="flex flex-col gap-2">
             <a th:each="item : ${ {
-                {'routes','Home','/routes'},
                 {'routes','Routes','/routes'},
                 {'about','About Us','/about'},
                 {'contact','Contact Us','/contact'},
@@ -67,7 +73,7 @@
                 {'login','Admin','/login'}
                } }"
                th:href="${item[2]}"
-               th:classappend="${currentPage == item[0]} ? 'bg-accent text-accent-foreground font-semibold' : 'hover:bg-white/20 text-primary-foreground'"
+               th:classappend="${currentPage == item[0]} ? 'nav-item-active' : 'hover:bg-white/20 text-primary-foreground'"
                class="text-left px-4 py-3 rounded-md text-base no-underline"
                th:text="${item[1]}">Item</a>
         </div>

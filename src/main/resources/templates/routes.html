@@ -4,51 +4,90 @@
 <!-- Leaflet via CDN -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+    /* Ensure the body and html take full height for map to fill */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Prevent scrollbars from appearing due to map */
+    }
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+    main {
+        flex-grow: 1; /* Allow main to take up remaining vertical space */
+        display: flex; /* Use flexbox for horizontal layout */
+        padding-top: 4rem; /* To account for the fixed navigation bar */
+        overflow: hidden; /* Hide overflow from map or list */
+    }
+    #routeListContainer {
+        width: 350px; /* Fixed width for the route list */
+        flex-shrink: 0; /* Prevent it from shrinking */
+        overflow-y: auto; /* Allow scrolling within the route list */
+        padding: 1rem;
+        background-color: hsl(var(--background)); /* Ensure background for the list */
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+    #map {
+        flex-grow: 1; /* Allow map to take up remaining horizontal space */
+        height: 100%; /* Fill the height of the main container */
+        border: 1px solid hsl(var(--border));
+        border-radius: 0.5rem; /* rounded-lg */
+        overflow: hidden; /* Hide any map overflow */
+    }
+    /* Adjust padding for elements inside routeListContainer */
+    #routeListContainer h1,
+    #routeListContainer p,
+    #routeListContainer input {
+        margin-left: 0;
+        margin-right: 0;
+    }
+</style>
 <body>
 <nav th:replace="~{fragments/layout :: nav(${currentPage})}"></nav>
 
-<main class="max-w-4xl mx-auto mt-10 px-5">
-    <h1 class="text-3xl font-bold mb-2 text-primary">Jeepney Routes</h1>
-    <p class="text-muted-foreground mb-6">
-        Browse all jeepney codes and routes in Cebu City. Use the search bar to
-        filter by code, destination, or street name.
-    </p>
+<main>
+    <div id="routeListContainer">
+        <h1 class="text-2xl font-bold mb-2 text-primary">Jeepney Routes</h1>
+        <p class="text-muted-foreground mb-6">
+            Browse all jeepney codes and routes in Cebu City. Use the search bar to
+            filter by code, destination, or street name.
+        </p>
 
-    <input id="search" type="text"
-           placeholder="Search by code, place, or street (e.g. 04L, Ayala, Colon)..."
-           class="w-full p-3 mb-6 rounded-md border bg-background text-foreground"
-           style="border: 1px solid hsl(var(--border));"
-           oninput="filterRoutes()"/>
+        <input id="search" type="text"
+               placeholder="Search by code, place, or street (e.g. 04L, Ayala, Colon)..."
+               class="w-full p-3 mb-6 rounded-md border bg-background text-foreground"
+               style="border: 1px solid hsl(var(--border));"
+               oninput="filterRoutes()"/>
 
-    <div class="flex flex-col md:flex-row gap-6">
-        <div id="routeListContainer" class="md:w-1/2 lg:w-2/5 overflow-y-auto" style="max-height: 600px;">
-            <div id="routeList" class="grid gap-4">
-                <div th:each="r : ${routes}"
-                     th:attr="data-code=${r.code},data-name=${r.name},data-from=${r.from},data-to=${r.to},data-via=${r.via},data-color=${r.color},data-path=${r.pathJson}"
-                     class="route-card bg-card text-card-foreground p-5 rounded-lg border cursor-pointer transition"
-                     style="border: 1px solid hsl(var(--border));"
-                     onclick="highlight(this.dataset.code)">
-                    <div class="flex items-center justify-between mb-2">
-                        <span th:text="${r.code}"
-                              class="text-primary-foreground px-3 py-1 rounded-md font-bold text-lg"
-                              th:style="'background:' + ${r.color}">CODE</span>
-                        <span class="text-sm text-muted-foreground" th:text="${r.fare}">₱13.00</span>
-                    </div>
-                    <h3 class="font-semibold mb-1" th:text="${r.name}">Name</h3>
-                    <p class="text-sm text-muted-foreground"><strong>From:</strong> <span th:text="${r.from}"></span></p>
-                    <p class="text-sm text-muted-foreground"><strong>To:</strong> <span th:text="${r.to}"></span></p>
-                    <p class="text-sm text-muted-foreground mt-1"><strong>Via:</strong> <span th:text="${r.via}"></span></p>
+        <div id="routeList" class="grid gap-4">
+            <div th:each="r : ${routes}"
+                 th:attr="data-code=${r.code},data-name=${r.name},data-from=${r.from},data-to=${r.to},data-via=${r.via},data-color=${r.color},data-path=${r.pathJson}"
+                 class="route-card bg-card text-card-foreground p-5 rounded-lg border cursor-pointer transition"
+                 style="border: 1px solid hsl(var(--border));"
+                 onclick="highlight(this.dataset.code)">
+                <div class="flex items-center justify-between mb-2">
+                    <span th:text="${r.code}"
+                          class="text-primary-foreground px-3 py-1 rounded-md font-bold text-lg"
+                          th:style="'background:' + ${r.color}">CODE</span>
+                    <span class="text-sm text-muted-foreground" th:text="${r.fare}">₱13.00</span>
                 </div>
-            </div>
-            <div id="empty" class="text-center py-12 text-muted-foreground hidden">
-                <p class="text-lg">No routes found</p>
+                <h3 class="font-semibold mb-1" th:text="${r.name}">Name</h3>
+                <p class="text-sm text-muted-foreground"><strong>From:</strong> <span th:text="${r.from}"></span></p>
+                <p class="text-sm text-muted-foreground"><strong>To:</strong> <span th:text="${r.to}"></span></p>
+                <p class="text-sm text-muted-foreground mt-1"><strong>Via:</strong> <span th:text="${r.via}"></span></p>
             </div>
         </div>
-        <div id="map" class="md:w-1/2 lg:w-3/5 rounded-lg overflow-hidden border border-border"
-             style="height: 600px; border: 1px solid hsl(var(--border));"></div>
+        <div id="empty" class="text-center py-12 text-muted-foreground hidden">
+            <p class="text-lg">No routes found</p>
+        </div>
     </div>
 
-    <p class="text-xs text-muted-foreground mt-8 text-center">
+    <div id="map"></div>
+
+    <p class="text-xs text-muted-foreground absolute bottom-4 left-1/2 -translate-x-1/2 z-50 bg-white p-2 rounded-md shadow-md">
         Route data is for reference only. Actual routes and fares may vary.
     </p>
 </main>

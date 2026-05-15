@@ -35,3 +35,4 @@ Default uses H2 in-memory so it runs out of the box. Swap `application.propertie
 Routes page loads Leaflet + OpenStreetMap from CDN — no npm needed. Coordinates come from `RouteService.getAll()` and are dropped into the page via Thymeleaf + a small inline `<script>`.
 
 JDK 17+ required.
+ 
