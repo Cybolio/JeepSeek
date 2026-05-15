@@ -3,7 +3,7 @@
 <head th:fragment="head(title)">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="icon" href="/favicon.ico"/>
+    <link rel="icon" href="/logo.png"/>
     <title th:text="${title}">JeepSeek</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -45,10 +45,10 @@
 <nav th:fragment="nav(currentPage)"
      class="fixed top-0 left-0 right-0 z-[9999] flex justify-between items-center text-primary-foreground px-5 py-3"
      style="background: hsl(var(--primary));">
-    <a href="/" class="flex items-center gap-2.5 cursor-pointer no-underline text-primary-foreground">
+    <afavicon href="/" class="flex items-center gap-2.5 cursor-pointer no-underline text-primary-foreground">
         <img src="/logo.png" class="h-8" alt="JeepSeek Logo"/>
         <h2 class="text-xl font-bold">JeepSeek</h2>
-    </a>
+    </afavicon>
     <button onclick="document.getElementById('menu').classList.toggle('hidden')"
             class="p-2 rounded-md hover:bg-white/20">
         <!-- hamburger -->
