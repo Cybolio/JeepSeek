@@ -4,7 +4,7 @@ Mirror of the React app (in repo root) using **Controller → Service → Reposi
 
 ## Run
 ```bash
-cd springboot
+cd JeepSeek
 ./mvnw spring-boot:run
 # or: mvn spring-boot:run
 ```
@@ -28,10 +28,8 @@ src/main/java/com/example/jeepseekapp/
     └── ContactMessage.java
 ```
 
-The flow your teacher wants: **Controller calls Service, Service calls Repository, Repository talks to the DB.** Controllers never touch repositories directly.
-
 ## DB
-Default uses H2 in-memory so it runs out of the box. Swap `application.properties` to MySQL/Postgres when you're ready.
+Default uses H2 in-memory so it runs out of the box. Swap `application.properties` to MySQL/Postgres when ready.
 
 ## Map
 Routes page loads Leaflet + OpenStreetMap from CDN — no npm needed. Coordinates come from `RouteService.getAll()` and are dropped into the page via Thymeleaf + a small inline `<script>`.
