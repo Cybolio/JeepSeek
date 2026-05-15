@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" href="/favicon.ico"/>
+    <title th:text="${title}">JeepSeek</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 150 3% 18%;
+            --card: 39 50% 94%;
+            --card-foreground: 150 3% 18%;
+            --primary: 199 34% 39%;
+            --primary-foreground: 0 0% 100%;
+            --accent: 150 3% 18%;
+            --accent-foreground: 0 0% 100%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --border: 214.3 31.8% 91.4%;
+        }
+        body { font-family: Arial, sans-serif; background: hsl(var(--background)); color: hsl(var(--foreground)); }
+        .bg-primary { background: hsl(var(--primary)); }
+        .text-primary { color: hsl(var(--primary)); }
+        .text-primary-foreground { color: hsl(var(--primary-foreground)); }
+        .bg-card { background: hsl(var(--card)); }
+        .text-card-foreground { color: hsl(var(--card-foreground)); }
+        .bg-accent { background: hsl(var(--accent)); }
+        .text-accent-foreground { color: hsl(var(--accent-foreground)); }
+        .text-muted-foreground { color: hsl(var(--muted-foreground)); }
+        .border-border { border-color: hsl(var(--border)); }
+        .bg-background { background: hsl(var(--background)); }
+    </style>
+</head>
+<body>
+
+<!-- Top navigation -->
+<nav th:fragment="nav(currentPage)"
+     class="flex justify-between items-center text-primary-foreground px-5 py-3"
+     style="background: hsl(var(--primary));">
+    <a href="/" class="flex items-center gap-2.5 cursor-pointer no-underline text-primary-foreground">
+        <img src="/logo.png" class="h-8" alt="JeepSeek Logo"/>
+        <h2 class="text-xl font-bold">JeepSeek</h2>
+    </a>
+    <button onclick="document.getElementById('menu').classList.toggle('hidden')"
+            class="p-2 rounded-md hover:bg-white/20">
+        <!-- hamburger -->
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+    </button>
+
+    <div id="menu" class="hidden fixed top-0 right-0 h-full w-[280px] bg-primary text-primary-foreground p-5 shadow-lg z-50"
+         style="background: hsl(var(--primary));">
+        <div class="flex justify-between items-center mb-6">
+            <span class="text-lg font-semibold">Menu</span>
+            <button onclick="document.getElementById('menu').classList.add('hidden')" class="p-1">✕</button>
+        </div>
+        <div class="flex flex-col gap-2">
+            <a th:each="item : ${ {
+                {'home','Home','/'},
+                {'routes','Routes','/routes'},
+                {'about','About Us','/about'},
+                {'contact','Contact Us','/contact'},
+                {'userlogin','Login','/userlogin'},
+                {'register','Sign Up','/register'},
+                {'login','Admin','/login'}
+               } }"
+               th:href="${item[2]}"
+               th:classappend="${currentPage == item[0]} ? 'bg-white text-primary font-semibold' : 'hover:bg-white/20'"
+               class="text-left px-4 py-3 rounded-md text-base no-underline text-primary-foreground"
+               th:text="${item[1]}">Item</a>
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>

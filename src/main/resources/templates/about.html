@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('JeepSeek — About')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: nav(${currentPage})}"></nav>
+
+<main class="max-w-3xl mx-auto mt-10 px-5">
+    <h1 class="text-3xl font-bold mb-6 text-primary">About JeepSeek</h1>
+
+    <div class="bg-card text-card-foreground p-6 rounded-lg mb-6">
+        <h2 class="text-xl font-semibold mb-3">What is JeepSeek?</h2>
+        <p class="leading-relaxed text-muted-foreground">
+            JeepSeek is a web-based route finder designed to help commuters navigate
+            the jeepney system in <strong>Cebu City</strong>.
+        </p>
+    </div>
+
+    <div class="bg-card text-card-foreground p-6 rounded-lg mb-6">
+        <h2 class="text-xl font-semibold mb-3">Our Mission</h2>
+        <p class="leading-relaxed text-muted-foreground">
+            Make public transport in Cebu City more accessible with a simple,
+            searchable directory of jeepney routes.
+        </p>
+    </div>
+
+    <div class="bg-card text-card-foreground p-6 rounded-lg mb-6">
+        <h2 class="text-xl font-semibold mb-3">The Team</h2>
+        <ul class="space-y-1 text-muted-foreground list-disc list-inside">
+            <li>Member 1 — Role</li>
+            <li>Member 2 — Role</li>
+            <li>Member 3 — Role</li>
+            <li>Member 4 — Role</li>
+        </ul>
+    </div>
+
+    <div class="bg-card text-card-foreground p-6 rounded-lg">
+        <h2 class="text-xl font-semibold mb-3">Technology</h2>
+        <p class="leading-relaxed text-muted-foreground">
+            Built with <strong>Spring Boot</strong>, <strong>Thymeleaf</strong>,
+            <strong>Tailwind CSS</strong>, and <strong>Leaflet + OpenStreetMap</strong>.
+        </p>
+    </div>
+</main>
+</body>
+</html>

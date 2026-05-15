@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('JeepSeek — Login')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: nav(${currentPage})}"></nav>
+
+<main class="mx-auto mt-24 w-[300px] bg-card text-card-foreground p-5 rounded-lg text-center">
+    <img src="/logo.png" class="w-20 block mx-auto mb-4" alt="JeepSeek Logo"/>
+    <h2 class="text-xl font-bold mb-4">Login</h2>
+
+    <input placeholder="Email" class="w-full p-2.5 my-1 rounded-md border" style="border: 1px solid hsl(var(--border));"/>
+
+    <div class="relative my-1">
+        <input id="pw" placeholder="Password" type="password"
+               class="w-full p-2.5 pr-10 rounded-md border" style="border: 1px solid hsl(var(--border));"/>
+        <button type="button" onclick="togglePw('pw', this)"
+                class="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground">👁</button>
+    </div>
+
+    <button class="w-full p-2.5 mt-3 bg-primary text-primary-foreground rounded-md hover:opacity-90">Login</button>
+    <a href="/register" class="block mt-3 text-muted-foreground hover:underline no-underline">Don't have an account? Sign Up</a>
+</main>
+
+<script>
+    function togglePw(id, btn) {
+        const i = document.getElementById(id);
+        const isPw = i.type === 'password';
+        i.type = isPw ? 'text' : 'password';
+        btn.textContent = isPw ? '🙈' : '👁';
+    }
+</script>
+</body>
+</html>

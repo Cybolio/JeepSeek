@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('JeepSeek — Contact')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: nav(${currentPage})}"></nav>
+
+<main class="max-w-xl mx-auto mt-10 px-5">
+    <h1 class="text-3xl font-bold mb-6 text-primary">Contact Us</h1>
+
+    <div th:if="${submitted}" class="bg-card text-card-foreground p-8 rounded-lg text-center">
+        <h2 class="text-xl font-semibold mb-2">Thank you!</h2>
+        <p class="text-muted-foreground">Your message has been received.</p>
+        <a href="/contact" class="inline-block mt-4 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:opacity-90 no-underline">
+            Send Another
+        </a>
+    </div>
+
+    <form th:unless="${submitted}" method="post" action="/contact" class="bg-card text-card-foreground p-6 rounded-lg">
+        <p class="text-muted-foreground mb-4">Have questions, suggestions, or found an incorrect route?</p>
+
+        <label class="block mb-1 font-medium text-sm">Name</label>
+        <input required name="name" placeholder="Your name" class="w-full p-2.5 mb-3 rounded-md border bg-background" style="border: 1px solid hsl(var(--border));"/>
+
+        <label class="block mb-1 font-medium text-sm">Email</label>
+        <input required type="email" name="email" placeholder="you@email.com" class="w-full p-2.5 mb-3 rounded-md border bg-background" style="border: 1px solid hsl(var(--border));"/>
+
+        <label class="block mb-1 font-medium text-sm">Subject</label>
+        <input required name="subject" placeholder="e.g. Wrong route info for 04L" class="w-full p-2.5 mb-3 rounded-md border bg-background" style="border: 1px solid hsl(var(--border));"/>
+
+        <label class="block mb-1 font-medium text-sm">Message</label>
+        <textarea required name="message" rows="4" placeholder="Tell us more..." class="w-full p-2.5 mb-3 rounded-md border bg-background resize-none" style="border: 1px solid hsl(var(--border));"></textarea>
+
+        <button type="submit" class="w-full p-2.5 mt-2 bg-primary text-primary-foreground border-none rounded-md hover:opacity-90 font-medium">
+            Send Message
+        </button>
+    </form>
+
+    <div class="mt-6 bg-card text-card-foreground p-6 rounded-lg">
+        <h2 class="text-lg font-semibold mb-3">Other Ways to Reach Us</h2>
+        <div class="space-y-2 text-muted-foreground text-sm">
+            <p>📧 Email: jeepseek@email.com</p>
+            <p>📍 Location: Cebu City, Philippines</p>
+            <p>🏫 University: Your University Name</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>
