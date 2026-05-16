@@ -78,6 +78,12 @@
                 <p class="text-sm text-muted-foreground"><strong>From:</strong> <span th:text="${r.from}"></span></p>
                 <p class="text-sm text-muted-foreground"><strong>To:</strong> <span th:text="${r.to}"></span></p>
                 <p class="text-sm text-muted-foreground mt-1"><strong>Via:</strong> <span th:text="${r.via}"></span></p>
+                <form th:if="${sessionUserId != null}" method="post" action="/favorites/add"
+                      class="mt-2" onclick="event.stopPropagation();">
+                    <input type="hidden" name="routeId" th:value="${r.id}"/>
+                    <button class="text-sm px-3 py-1 rounded-md bg-primary text-primary-foreground hover:opacity-90"
+                            type="submit">♥ Save to Favorites</button>
+                </form>
             </div>
         </div>
         <div id="empty" class="text-center py-12 text-muted-foreground hidden">

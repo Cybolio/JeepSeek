@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('JeepSeek — New User')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: nav(${currentPage})}"></nav>
+
+<main class="max-w-md mx-auto mt-24 bg-card text-card-foreground p-5 rounded-lg">
+    <h2 class="text-xl font-bold mb-4">Create User</h2>
+    <p th:if="${error}" th:text="${error}" class="text-red-600 text-sm mb-2"></p>
+    <form method="post" action="/admin/users" class="space-y-2">
+        <input name="name" required placeholder="Full Name"
+               class="w-full p-2.5 rounded-md border" style="border:1px solid hsl(var(--border));"/>
+        <input name="email" type="email" required placeholder="Email"
+               class="w-full p-2.5 rounded-md border" style="border:1px solid hsl(var(--border));"/>
+        <input name="password" type="password" required minlength="6" placeholder="Password"
+               class="w-full p-2.5 rounded-md border" style="border:1px solid hsl(var(--border));"/>
+        <select name="role" class="w-full p-2.5 rounded-md border" style="border:1px solid hsl(var(--border));">
+            <option value="USER">USER</option>
+            <option value="ADMIN">ADMIN</option>
+        </select>
+        <button class="w-full p-2.5 mt-3 bg-primary text-primary-foreground rounded-md hover:opacity-90">Create</button>
+        <a href="/admin/users" class="block text-center mt-2 text-muted-foreground hover:underline">Cancel</a>
+    </form>
+</main>
+</body>
+</html>

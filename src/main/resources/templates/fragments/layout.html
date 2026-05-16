@@ -64,18 +64,23 @@
             <button onclick="document.getElementById('menu').classList.add('hidden')" class="p-1">✕</button>
         </div>
         <div class="flex flex-col gap-2">
-            <a th:each="item : ${ {
-                {'routes','Routes','/routes'},
-                {'about','About Us','/about'},
-                {'contact','Contact Us','/contact'},
-                {'userlogin','Login','/userlogin'},
-                {'register','Sign Up','/register'},
-                {'login','Admin','/login'}
-               } }"
-               th:href="${item[2]}"
-               th:classappend="${currentPage == item[0]} ? 'nav-item-active' : 'hover:bg-white/20 text-primary-foreground'"
-               class="text-left px-4 py-3 rounded-md text-base no-underline"
-               th:text="${item[1]}">Item</a>
+            <a href="/routes"  th:classappend="${currentPage == 'routes'}  ? 'nav-item-active' : 'hover:bg-white/20 text-primary-foreground'" class="text-left px-4 py-3 rounded-md text-base no-underline">Routes</a>
+            <a href="/about"   th:classappend="${currentPage == 'about'}   ? 'nav-item-active' : 'hover:bg-white/20 text-primary-foreground'" class="text-left px-4 py-3 rounded-md text-base no-underline">About Us</a>
+            <a href="/contact" th:classappend="${currentPage == 'contact'} ? 'nav-item-active' : 'hover:bg-white/20 text-primary-foreground'" class="text-left px-4 py-3 rounded-md text-base no-underline">Contact Us</a>
+
+            <!-- Logged out -->
+            <a th:if="${session.userId == null}" href="/userlogin" th:classappend="${currentPage == 'userlogin'} ? 'nav-item-active' : 'hover:bg-white/20 text-primary-foreground'" class="text-left px-4 py-3 rounded-md text-base no-underline">Login</a>
+            <a th:if="${session.userId == null}" href="/register"  th:classappend="${currentPage == 'register'}  ? 'nav-item-active' : 'hover:bg-white/20 text-primary-foreground'" class="text-left px-4 py-3 rounded-md text-base no-underline">Sign Up</a>
+            <a th:if="${session.userId == null}" href="/login"     th:classappend="${currentPage == 'login'}     ? 'nav-item-active' : 'hover:bg-white/20 text-primary-foreground'" class="text-left px-4 py-3 rounded-md text-base no-underline">Admin</a>
+
+            <!-- Logged in -->
+            <a th:if="${session.userId != null}" href="/profile" th:classappend="${currentPage == 'profile'} ? 'nav-item-active' : 'hover:bg-white/20 text-primary-foreground'" class="text-left px-4 py-3 rounded-md text-base no-underline">
+                Hi, <span th:text="${session.userName}">User</span>
+            </a>
+            <a th:if="${session.userRole == 'ADMIN'}" href="/admin/users" th:classappend="${currentPage == 'admin'} ? 'nav-item-active' : 'hover:bg-white/20 text-primary-foreground'" class="text-left px-4 py-3 rounded-md text-base no-underline">Admin Users</a>
+            <form th:if="${session.userId != null}" method="post" action="/logout" class="mt-2">
+                <button class="w-full text-left px-4 py-3 rounded-md text-base hover:bg-white/20 text-primary-foreground">Logout</button>
+            </form>
         </div>
     </div>
 </nav>

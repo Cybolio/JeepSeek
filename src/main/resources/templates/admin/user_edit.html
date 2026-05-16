@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('JeepSeek — Edit User')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: nav(${currentPage})}"></nav>
+
+<main class="max-w-md mx-auto mt-24 bg-card text-card-foreground p-5 rounded-lg">
+    <h2 class="text-xl font-bold mb-4">Edit User #<span th:text="${u.id}"></span></h2>
+    <form th:action="@{|/admin/users/${u.id}|}" method="post" class="space-y-2">
+        <input name="name" required th:value="${u.name}"
+               class="w-full p-2.5 rounded-md border" style="border:1px solid hsl(var(--border));"/>
+        <input name="email" type="email" required th:value="${u.email}"
+               class="w-full p-2.5 rounded-md border" style="border:1px solid hsl(var(--border));"/>
+        <input name="password" type="password" placeholder="New password (leave blank to keep)"
+               class="w-full p-2.5 rounded-md border" style="border:1px solid hsl(var(--border));"/>
+        <select name="role" class="w-full p-2.5 rounded-md border" style="border:1px solid hsl(var(--border));">
+            <option value="USER"  th:selected="${u.role.name() == 'USER'}">USER</option>
+            <option value="ADMIN" th:selected="${u.role.name() == 'ADMIN'}">ADMIN</option>
+        </select>
+        <button class="w-full p-2.5 mt-3 bg-primary text-primary-foreground rounded-md hover:opacity-90">Save</button>
+        <a href="/admin/users" class="block text-center mt-2 text-muted-foreground hover:underline">Cancel</a>
+    </form>
+</main>
+</body>
+</html>
